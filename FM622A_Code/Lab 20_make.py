@@ -3,7 +3,8 @@ from machine import Pin, I2C
 
 ssid = "你的WiFi名稱"
 pw =   "你的WiFi密碼"
-url = "輸入你的 MAKE 網址"
+make_url = '你的 make.com web hook 網址'
+replit_url = '你的 replit 專案網站網址'
 
 print("連接 WiFi...")
 wifi = network.WLAN(network.STA_IF)
@@ -19,8 +20,9 @@ print("亮度記錄器已啟動")
 while True:
     
     light_level = bh1750fvi.sample(I2C(scl=Pin(5), sda=Pin(4)), mode=0x23)
-
-    response = urequests.get(url + "?value1=" + str(light_level))
+    response = urequests.get(replit_url
+                             + '?url=' + make_url
+                             + '&value1=' + str(light_level)')
     
     if response.status_code == 200:
         print("MAKE 呼叫成功: 傳送亮度 " + str(light_level) + " lux")
