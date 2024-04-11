@@ -6,7 +6,8 @@ sonar = HCSR04(trigger_pin=14, echo_pin=12)
 
 ssid = "你的WiFi名稱"
 pw =   "你的WiFi密碼"
-url = "輸入你的 MAKE 網址"
+make_url = '你的 make.com web hook 網址'
+replit_url = '你的 replit 專案網站網址'
 
 print("連接 WiFi: " + ssid + "...")
 wifi = network.WLAN(network.STA_IF)
@@ -25,7 +26,8 @@ while True:
     if 2 <= distance <= 10:
 
         print("偵測到不明物 !!!")
-        response = urequests.get(url)
+        response = urequests.get(replit_url
+                             + '?url=' + make_url)
     
         if response.status_code == 200:
             print("MAKE 呼叫成功: 傳送 Line 通知")
